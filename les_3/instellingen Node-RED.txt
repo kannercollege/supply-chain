@@ -6,6 +6,3 @@ v3/lkc-scm@ttn/devices/lkc-scm-08/up
 
 downlink
 v3/lkc-scm@ttn/devices/lkc-scm-08/down/push
-
-get request
-https://apex.oracle.com/pls/apex/lkc/store/tt_movies/{{rfid}}
