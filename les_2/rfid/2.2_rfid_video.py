@@ -7,7 +7,6 @@ import json
 py = Pycoproc(Pycoproc.PYSCAN)
 nfc = MFRC630(py)
 
-#RGB_BRIGHTNESS = 0x8
 RGB_RED = (0x7f0000)
 RGB_GREEN = (0x007f00)
 RGB_BLUE = (0X8)
