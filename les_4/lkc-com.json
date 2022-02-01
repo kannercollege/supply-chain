@@ -1,0 +1,170 @@
+[
+    {
+        "id": "dad9ab4f909dfe87",
+        "type": "mqtt in",
+        "z": "30e8fe312c3f7390",
+        "name": "",
+        "topic": "v3/lkc-scm@ttn/devices/lkc-scm-01/up",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "6cb45653.45cfc8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "8d287c8644c19eb6"
+            ]
+        ]
+    },
+    {
+        "id": "8d287c8644c19eb6",
+        "type": "base64",
+        "z": "30e8fe312c3f7390",
+        "name": "",
+        "action": "b64",
+        "property": "payload[\"uplink_message\"][\"frm_payload\"]",
+        "x": 740,
+        "y": 280,
+        "wires": [
+            [
+                "5f87b08134efd036",
+                "aa1576354fed04da"
+            ]
+        ]
+    },
+    {
+        "id": "5f87b08134efd036",
+        "type": "debug",
+        "z": "30e8fe312c3f7390",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload[\"uplink_message\"][\"frm_payload\"]",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "04218ad33a993cfd",
+        "type": "function",
+        "z": "30e8fe312c3f7390",
+        "name": "convert to downlink message",
+        "func": "return{\n    \"payload\":{\n        \"downlinks\":[{\n            \"f_port\":15,\n            \"frm_payload\":msg.payload,\n            \"priority\": \"HIGH\"\n        }]\n    }\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 560,
+        "wires": [
+            [
+                "7043ac6867a76aa5",
+                "7de12d3481d551ba"
+            ]
+        ]
+    },
+    {
+        "id": "7043ac6867a76aa5",
+        "type": "mqtt out",
+        "z": "30e8fe312c3f7390",
+        "name": "",
+        "topic": "v3/lkc-scm@ttn/devices/lkc-scm-01/down/push",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "6cb45653.45cfc8",
+        "x": 1060,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "7de12d3481d551ba",
+        "type": "debug",
+        "z": "30e8fe312c3f7390",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3f85f03784352b40",
+        "type": "base64",
+        "z": "30e8fe312c3f7390",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "04218ad33a993cfd"
+            ]
+        ]
+    },
+    {
+        "id": "aa1576354fed04da",
+        "type": "function",
+        "z": "30e8fe312c3f7390",
+        "name": "response",
+        "func": "//vul hier je eigen node in\n\nif (msg.payload[\"uplink_message\"][\"frm_payload\"] == \"03\"){\n    msg.payload= \"no title found\";\n    return msg;    \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 440,
+        "wires": [
+            [
+                "3f85f03784352b40"
+            ]
+        ]
+    },
+    {
+        "id": "6cb45653.45cfc8",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "eu1.cloud.thethings.network",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
