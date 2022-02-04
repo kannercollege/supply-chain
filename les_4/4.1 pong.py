@@ -7,7 +7,7 @@ s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
 s.setblocking(False)
 i = 0
 while True:
-    if s.recv(64).decode() == b'Ping':
+    if s.recv(64).decode() == 'Ping':
         s.send('Pong')
         print('Pong {}'.format(i))
         i = i+1
