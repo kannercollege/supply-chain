@@ -10,7 +10,8 @@ nfc = MFRC630(py)
 RGB_RED = (0x7f0000)
 RGB_GREEN = (0x007f00)
 RGB_BLUE = (0X8)
-RGB_YELLOW = (0x7f7f00)
+RGB_ORANGE = (0x7f1f00)
+RGB_YELLOW = (0xffc000)
 
 # Make sure heartbeat is disabled before setting RGB LED
 pycom.heartbeat(False)
@@ -28,10 +29,10 @@ try:
             uid = bytearray(7)
             uid_len = nfc.mfrc630_iso14443a_select(uid)        
 
-            '''pas de code aan, zorg dat RGD LED van kleur verandert. 
+            '''pas de code aan, zorg dat RGB LED van kleur verandert. 
                bij een eerste keer aanbieden - groen 
                bij een tweede keer aanbieden - oranje
-               bij een foutief aanbeiden - rood'''
+               bij foutief aanbeiden - rood'''
 
             if nfc.format_block(uid, uid_len) != "":
                 print(str(nfc.format_block(uid, uid_len)))
@@ -54,7 +55,7 @@ try:
                 print('unable to determine its UID, try again')             
             
             time.sleep(2)    
-            print('Scanning for products')      
+            print('Scanning for videos')      
         else:   
             pycom.rgbled(RGB_BLUE)
 except:

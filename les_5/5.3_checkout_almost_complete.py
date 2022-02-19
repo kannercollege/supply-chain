@@ -1,25 +1,25 @@
-'''combineer onderstaande code met de code van 5.2
+'''combineer onderstaande code (vanaf regel 92) met de code van 5.2
    en pas de printfunctie alsvolgt aan 
    eerste keer aanbieden - received: title_dvd 
    tweede keer aanbieden - send: title_dvd'''
 
-            # requesting title
-            print('requesting title DVD')                    
-            s.send(uid)
-            print("")
+                # requesting title
+                pycom.rgbled(RGB_PENDING)
+                print('requesting title DVD')                    
+                s.send(uid)
+                print("")
                     
-            # waiting for a response
-            print('listening for a response')
-            s.setblocking(False)
-            data = ""
-            while data == "":          
-                data = s.recv(64).decode()
-            print(data)
+                # waiting for a response
+                print('listening for a response')
+                s.setblocking(False)
+    
+                title = ""
+                while title == "":          
+                    title = s.recv(64).decode()
+                print(title)
 
-            time.sleep(2)
-
-            print("")
-
+from machine import Pin
+from lib.tm1637 import TM1637Decimal
 from network import LoRa
 from MFRC630 import MFRC630
 from pycoproc_1 import Pycoproc
@@ -27,6 +27,11 @@ import socket
 import time
 import ubinascii
 import pycom
+import json
+
+# initialise counter
+tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
+counter = 0
 
 # To enable modification of the led
 pycom.heartbeat(False)
@@ -37,7 +42,9 @@ nfc = MFRC630(py)
 RGB_RED = (0x7f0000)
 RGB_GREEN = (0x007f00)
 RGB_BLUE = (0X8)
-RGB_YELLOW = (0x7f7f00)
+RGB_ORANGE = (0x7f1f00)
+RGB_YELLOW = (0x7ffc000)
+RGB_PENDING = (0x077e8c)
 
 # Make sure heartbeat is disabled before setting RGB LED
 pycom.heartbeat(False)
@@ -81,13 +88,16 @@ try:
             
             if nfc.format_block(uid, uid_len) != "":
                 print(str(nfc.format_block(uid, uid_len)))             
-
+        
+                '''voeg hier je code toe'''
 
             else:
-                print('unable to determine its UID, try again')             
+                print('unable to determine its UID, try again')
+                pycom.rgbled(RGB_RED)                 
 
             time.sleep(2)
-            print('Scanning for products') 
+            print("")
+            print('Scanning for videos') 
         else:
             pycom.rgbled(RGB_BLUE)
 
