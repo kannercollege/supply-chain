@@ -53,7 +53,7 @@ try:
                 pycom.rgbled(RGB_RED)             
             
             time.sleep(2)    
-            print('Scanning for products')      
+            print('Scanning for videos')      
         else:   
             pycom.rgbled(RGB_BLUE)
 except:

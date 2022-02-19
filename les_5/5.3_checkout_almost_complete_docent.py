@@ -1,14 +1,5 @@
-'''combineer onderstaande code met de code van 5.2
-   en pas de printfunctie alsvolgt aan 
-   eerste keer aanbieden - received: title_dvd 
-   tweede keer aanbieden - send: title_dvd'''
-
 from machine import Pin
 from lib.tm1637 import TM1637Decimal
-tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
-
-counter =0
-
 from network import LoRa
 from MFRC630 import MFRC630
 from pycoproc_1 import Pycoproc
@@ -17,6 +8,10 @@ import time
 import ubinascii
 import pycom
 import json
+
+# initialise counter
+tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
+counter =0
 
 # To enable modification of the led
 pycom.heartbeat(False)
@@ -118,7 +113,7 @@ try:
 
             print("")
             time.sleep(2)
-            print('Scanning for products') 
+            print('Scanning for videos') 
         else:
             pycom.rgbled(RGB_BLUE)
 
