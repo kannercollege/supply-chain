@@ -3,6 +3,7 @@ from lib.tm1637 import TM1637Decimal
 tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
 
 counter = 0
+tm.show("0000")
 
 from MFRC630 import MFRC630
 from pycoproc_1 import Pycoproc

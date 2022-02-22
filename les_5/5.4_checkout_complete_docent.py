@@ -1,5 +1,12 @@
+import lichtkrant as lk
+
 from machine import Pin
 from lib.tm1637 import TM1637Decimal
+tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
+
+counter =0
+tm.show("0000")
+
 from network import LoRa
 from MFRC630 import MFRC630
 from pycoproc_1 import Pycoproc
@@ -8,11 +15,6 @@ import time
 import ubinascii
 import pycom
 import json
-
-# initialise counter
-tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
-counter =0
-tm.show("0000")
 
 # To enable modification of the led
 pycom.heartbeat(False)
@@ -93,6 +95,7 @@ try:
                         data.remove(value)
                         pycom.rgbled(RGB_ORANGE) 
                         print("send: " + title)
+                        lk.print_on_matrix("send: " + title)
                         break
                 else:            
                     data.append(nfc.format_block(uid, uid_len).rstrip()) 
@@ -101,6 +104,7 @@ try:
                     digits = 4 - len(str(counter))                                  
                     tm.show(("0" * digits) + str(counter))
                     print("received: " + title)
+                    lk.print_on_matrix("received: " + title)
                      
                  
                 with open('inventory.json', 'w') as f:
