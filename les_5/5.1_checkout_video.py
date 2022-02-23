@@ -18,7 +18,7 @@ pycom.heartbeat(False)
 
 # Initialise the MFRC630 with some settings
 nfc.mfrc630_cmd_init()
-print('Scanning for products')
+print('Scanning for videos')
 try:
     while True:
         # Send REQA for ISO14443A card type
@@ -32,7 +32,7 @@ try:
             '''pas de code aan, zorg dat RGB LED van kleur verandert. 
                bij een eerste keer aanbieden - groen 
                bij een tweede keer aanbieden - oranje
-               bij foutief aanbeiden - rood'''
+               bij foutief aanbieden - rood'''
 
             if nfc.format_block(uid, uid_len) != "":
                 print(str(nfc.format_block(uid, uid_len)))

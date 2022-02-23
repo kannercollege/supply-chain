@@ -32,6 +32,7 @@ import json
 # initialise counter
 tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
 counter = 0
+tm.show("0000")
 
 # To enable modification of the led
 pycom.heartbeat(False)
