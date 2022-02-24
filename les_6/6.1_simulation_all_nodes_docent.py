@@ -10,6 +10,9 @@ import ubinascii
 import pycom
 import json
 
+# initialise matrix
+'''clk=P9, din=P10 en cs=P21'''
+
 # initialise counter
 tm = TM1637Decimal(clk=Pin("P11"), dio=Pin("P20"))
 counter =0
